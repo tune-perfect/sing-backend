@@ -1,5 +1,11 @@
 import { plainToInstance } from 'class-transformer';
-import { IsNumber, IsString, validateSync } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsPort,
+  IsString,
+  validateSync,
+} from 'class-validator';
 
 class EnvironmentVariables {
   @IsString()
@@ -16,6 +22,23 @@ class EnvironmentVariables {
 
   @IsNumber()
   DB_PORT: number;
+
+  @IsString()
+  KEYCLOAK_BASE_URL: string;
+
+  @IsString()
+  KEYCLOAK_REALM: string;
+
+  @IsOptional()
+  @IsPort()
+  PORT: number;
+
+  @IsOptional()
+  @IsString()
+  PREFIX: string;
+
+  @IsString()
+  JWT_SECRET: string;
 }
 
 export function validate(config: Record<string, unknown>) {

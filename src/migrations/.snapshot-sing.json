@@ -8,15 +8,6 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
-          "unsigned": true,
-          "autoincrement": true,
-          "primary": true,
-          "nullable": false,
-          "mappedType": "integer"
-        },
-        "title": {
-          "name": "title",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -24,8 +15,8 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "author": {
-          "name": "author",
+        "uuid": {
+          "name": "uuid",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -49,6 +40,66 @@
       ],
       "checks": [],
       "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "preferred_username": {
+          "name": "preferred_username",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        }
+      },
+      "name": "user",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "user_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "user_session_id_foreign": {
+          "constraintName": "user_session_id_foreign",
+          "columnNames": [
+            "session_id"
+          ],
+          "localTableName": "public.user",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.session",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }

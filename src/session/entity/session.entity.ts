@@ -1,18 +1,15 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { User } from '@auth/entity/user.entity';
+import { Entity, OneToMany, PrimaryKey, Property } from '@mikro-orm/core';
+import { v4 } from 'uuid';
 
 @Entity()
 export class Session {
   @PrimaryKey()
-  id: number;
+  id: string;
 
   @Property()
-  title: string;
+  uuid: string = v4();
 
-  @Property()
-  author: string;
-
-  constructor(title: string, author: string) {
-    this.title = title;
-    this.author = author;
-  }
+  @OneToMany(() => User, (user) => user.session)
+  users: User[];
 }
